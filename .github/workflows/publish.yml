@@ -65,5 +65,5 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run build:sdk
       - run: npm pack --ignore-scripts
-      - name: Publish the reviewed version with OIDC and provenance
-        run: npm publish "$PACKAGE_TARBALL" --access public --provenance --ignore-scripts
+      - name: Publish the reviewed version with OIDC
+        run: npm publish "$PACKAGE_TARBALL" --access public --ignore-scripts
