@@ -11,10 +11,10 @@ Securely connect a SaaS application to a self-hosted Yanvah Control instance.
 
 ```mermaid
 flowchart LR
-    A[Yanvah Control] -->|Signed HTTPS request| B[Control endpoint in SaaS]
-    B --> C[@yanvah/control]
-    C -->|Validated operation| D[SaaS business logic]
-    D --> E[Application services and database]
+    A["Yanvah Control"] -->|"Signed HTTPS request"| B["Control endpoint in SaaS"]
+    B --> C["@yanvah/control"]
+    C -->|"Validated operation"| D["SaaS business logic"]
+    D --> E["Application services and database"]
 ```
 
 A connected SaaS remains responsible for its own data and business logic. Yanvah Control does not receive direct database access.
