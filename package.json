@@ -5,11 +5,11 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanvah/control-sdk.git"
+    "url": "https://github.com/Yanvah/control-sdk.git"
   },
-  "homepage": "https://github.com/yanvah/control-sdk#readme",
+  "homepage": "https://github.com/Yanvah/control-sdk#readme",
   "bugs": {
-    "url": "https://github.com/yanvah/control-sdk/issues"
+    "url": "https://github.com/Yanvah/control-sdk/issues"
   },
   "keywords": [
     "yanvah",

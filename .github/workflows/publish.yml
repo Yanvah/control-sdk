@@ -23,7 +23,7 @@ concurrency:
 jobs:
   validate:
     if: >-
-      github.repository == 'yanvah/control-sdk' &&
+      github.repository == 'Yanvah/control-sdk' &&
       github.ref == 'refs/heads/main' &&
       inputs.confirm && vars.NPM_PUBLISH_ENABLED == 'true'
     uses: ./.github/workflows/ci.yml
@@ -43,7 +43,7 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
-          registry-url: "https://registry.npmjs.org"
+          registry-url: "https://registry.npmjs.org/"
           package-manager-cache: false
       - name: Check release identity and OIDC-capable npm
         env:
@@ -74,5 +74,11 @@ jobs:
           echo "node=$(node --version)"
           echo "oidc_url_set=$([ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && echo yes || echo no)"
           echo "oidc_token_set=$([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo yes || echo no)"
-      - name: Publish the reviewed version with OIDC
+      - name: Remove token auth before OIDC publish
+        run: |
+          npmrc="${NPM_CONFIG_USERCONFIG:-$HOME/.npmrc}"
+          if [ -f "$npmrc" ]; then
+            sed -i '/_authToken/d' "$npmrc"
+          fi
+      - name: Publish with npm Trusted Publishing
         run: npm publish "$PACKAGE_TARBALL" --access public --ignore-scripts

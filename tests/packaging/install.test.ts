@@ -45,7 +45,7 @@ const metadataSchema = z.object({
   ),
   repository: z.object({
     type: z.literal("git"),
-    url: z.literal("git+https://github.com/yanvah/control-sdk.git"),
+    url: z.literal("https://github.com/Yanvah/control-sdk.git"),
   }),
   publishConfig: z.object({
     access: z.literal("public"),
