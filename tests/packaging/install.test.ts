@@ -49,7 +49,6 @@ const metadataSchema = z.object({
   }),
   publishConfig: z.object({
     access: z.literal("public"),
-    provenance: z.literal(true),
   }),
 });
 let temporary: string | undefined;
