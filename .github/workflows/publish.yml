@@ -40,9 +40,10 @@ jobs:
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
         with:
           persist-credentials: false
-      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+      - uses: actions/setup-node@v7
         with:
-          node-version: 24
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
       - name: Check release identity and OIDC-capable npm
         env:
@@ -64,5 +65,14 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run build:sdk
       - run: npm pack --ignore-scripts
+      - name: Debug OIDC identity
+        run: |
+          echo "repo=$GITHUB_REPOSITORY"
+          echo "workflow_ref=$GITHUB_WORKFLOW_REF"
+          echo "ref=$GITHUB_REF"
+          echo "npm=$(npm --version)"
+          echo "node=$(node --version)"
+          echo "oidc_url_set=$([ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ] && echo yes || echo no)"
+          echo "oidc_token_set=$([ -n "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ] && echo yes || echo no)"
       - name: Publish the reviewed version with OIDC
         run: npm publish "$PACKAGE_TARBALL" --access public --ignore-scripts
