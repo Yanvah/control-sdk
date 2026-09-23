@@ -2,8 +2,6 @@
 
 Securely connect a SaaS application to a self-hosted Yanvah Control instance.
 
-> **Status:** `0.2.0` is prepared for release review and has not been published by this repository setup. See the [release checklist](https://github.com/yanvah/control-sdk/blob/main/docs/RELEASING.md) for required account configuration and the explicit publishing step.
-
 ## What it does
 
 `@yanvah/control` provides the shared protocol, signed HTTP client, and secure request handler between:
