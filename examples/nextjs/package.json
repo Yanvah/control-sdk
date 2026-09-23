@@ -1,0 +1,26 @@
+{
+  "name": "@yanvah/control-example-nextjs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "node scripts/next.mjs dev --hostname 127.0.0.1 --port 3001",
+    "build": "node scripts/next.mjs build",
+    "typecheck": "node scripts/next.mjs typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@yanvah/control": "file:../..",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@typescript/lib-dom": "npm:@types/web@0.0.356"
+  }
+}

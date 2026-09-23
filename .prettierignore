@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+package-lock.json
+.next/
+.nextjs-test-*/
+next-env.d.ts
+# Preserve source-of-truth documents outside explicitly requested content edits.
+AGENTS.md
+PLAN.md

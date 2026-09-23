@@ -1,0 +1,87 @@
+{
+  "name": "@yanvah/control",
+  "version": "0.2.0",
+  "description": "Signed, typed administrative operations between SaaS applications and self-hosted Yanvah Control.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yanvah/control-sdk.git"
+  },
+  "homepage": "https://github.com/yanvah/control-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/yanvah/control-sdk/issues"
+  },
+  "keywords": [
+    "yanvah",
+    "saas",
+    "administration",
+    "sdk",
+    "typescript",
+    "hmac"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "provenance": true
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "sideEffects": false,
+  "workspaces": [
+    "examples/nextjs"
+  ],
+  "files": [
+    "dist",
+    "SECURITY.md",
+    "CHANGELOG.md",
+    "docs/PROTOCOL.md",
+    "docs/THREAT_MODEL.md",
+    "docs/DEPLOYMENT.md"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./server": {
+      "types": "./dist/server/index.d.ts",
+      "import": "./dist/server/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.js"
+    }
+  },
+  "scripts": {
+    "build:sdk": "tsup",
+    "build": "npm run build:sdk && npm run build --workspace @yanvah/control-example-nextjs",
+    "typecheck": "npm run build:sdk && tsc --noEmit && npm run typecheck --workspace @yanvah/control-example-nextjs",
+    "test": "npm run build:sdk && vitest run --typecheck",
+    "test:package": "npm run build:sdk && vitest run tests/packaging",
+    "prepack": "npm run build:sdk",
+    "lint": "eslint . --max-warnings 0 && prettier --check .",
+    "format": "prettier --write .",
+    "example:setup": "node --experimental-strip-types --disable-warning=ExperimentalWarning examples/nextjs/scripts/setup.ts",
+    "example:dev": "npm run build:sdk && npm run dev --workspace @yanvah/control-example-nextjs",
+    "smoke": "node --experimental-strip-types --disable-warning=ExperimentalWarning examples/nextjs/scripts/smoke.ts"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^22.0.0",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.8",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "5.0.1"
+  },
+  "overrides": {
+    "esbuild": "^0.28.2"
+  }
+}

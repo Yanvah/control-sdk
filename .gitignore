@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+*.tgz
+*.tsbuildinfo
+.DS_Store
+.env
+.env.*
+!.env.example
+.next/
+.nextjs-test-*/
+next-env.d.ts
+AGENTS.md
+PLAN.md

@@ -1,0 +1,69 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Package version approved for publication (for example 0.2.0)
+        type: string
+        required: true
+      confirm:
+        description: Publish this version publicly to npm
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: >-
+      github.repository == 'yanvah/control-sdk' &&
+      github.ref == 'refs/heads/main' &&
+      inputs.confirm && vars.NPM_PUBLISH_ENABLED == 'true'
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+          package-manager-cache: false
+      - name: Check release identity and OIDC-capable npm
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import { execFileSync } from 'node:child_process';
+          import { appendFileSync, readFileSync } from 'node:fs';
+          const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
+          assert.match(process.env.RELEASE_VERSION, /^\d+\.\d+\.\d+$/);
+          assert.equal(pkg.name, '@yanvah/control');
+          assert.equal(pkg.version, process.env.RELEASE_VERSION);
+          assert.notEqual(pkg.private, true);
+          const [major, minor, patch] = execFileSync('npm', ['--version'], { encoding: 'utf8' }).trim().split('.').map(Number);
+          assert.ok(major > 11 || (major === 11 && (minor > 5 || (minor === 5 && patch >= 1))), 'npm 11.5.1+ is required');
+          appendFileSync(process.env.GITHUB_ENV, `PACKAGE_TARBALL=yanvah-control-${pkg.version}.tgz\n`);
+          JS
+      - run: npm ci --ignore-scripts
+      - run: npm run build:sdk
+      - run: npm pack --ignore-scripts
+      - name: Publish the reviewed version with OIDC and provenance
+        run: npm publish "$PACKAGE_TARBALL" --access public --provenance --ignore-scripts
