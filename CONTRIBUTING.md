@@ -1,7 +1,5 @@
 # Contributing
 
-Read [README.md](./README.md), [PLAN.md](./PLAN.md), and [AGENTS.md](./AGENTS.md) before changing behavior. Keep proposals within the SDK's documented scope. Discuss changes to the public API or wire protocol in an issue before implementing them. Report vulnerabilities through [SECURITY.md](./SECURITY.md).
-
 ## Local checks
 
 Use Node.js 22.13+ and npm. From the repository root:
