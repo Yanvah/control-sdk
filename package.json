@@ -1,6 +1,6 @@
 {
   "name": "@yanvah/control",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Signed, typed administrative operations between SaaS applications and self-hosted Yanvah Control.",
   "license": "Apache-2.0",
   "repository": {
