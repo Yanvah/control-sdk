@@ -59,7 +59,7 @@
     "build:sdk": "tsup",
     "build": "npm run build:sdk && npm run build --workspace @yanvah/control-example-nextjs",
     "typecheck": "npm run build:sdk && tsc --noEmit && npm run typecheck --workspace @yanvah/control-example-nextjs",
-    "test": "npm run build:sdk && vitest run --typecheck",
+    "test": "npm run build:sdk && vitest run && vitest run --typecheck.only",
     "test:package": "npm run build:sdk && vitest run tests/packaging",
     "prepack": "npm run build:sdk",
     "lint": "eslint . --max-warnings 0 && prettier --check .",
