@@ -89,8 +89,6 @@ In a Next.js App Router application running Node.js 22+, install:
 npm install @yanvah/control@0.2.0 zod
 ```
 
-Before the first npm release, build a local tarball with `npm install && npm run build:sdk && npm pack` in this repository, then install its absolute path in your application instead: `npm install /absolute/path/yanvah-control-0.2.0.tgz zod`.
-
 For a new local integration, generate credentials without printing them. This creates `.env.local` with owner-only permissions and refuses to overwrite an existing file. If that file already exists, add the same variable names using fresh credentials from your secret manager instead. Keep `.env.local` out of version control.
 
 ```bash
@@ -268,8 +266,6 @@ The endpoint must be treated as publicly discoverable. Security must never depen
 
 ## Development
 
-Implementation is divided into five phases in [`PLAN.md`](./PLAN.md). AI coding agents should read [`AGENTS.md`](./AGENTS.md) before changing the repository.
-
 Use an up-to-date Node.js 22+ release (at least 22.13 on the Node 22 line for the development tools) and npm. The package runtime requirement is Node.js 22+.
 
 Stop the example development server before running type checking or building; the [example guide](./examples/nextjs/README.md#configuration-and-development) explains the Next.js generated-type compatibility handling.
@@ -304,7 +300,7 @@ JS
 
 No request is sent by this schema example. Integration tests connect the real client and handler; security tests also use independent Node cryptography. The local Next.js example and smoke script exercise the built public package exports. A dependency lockfile is included; Zod is the SDK's only runtime dependency. Next.js and its React peers belong to the private example workspace.
 
-CI checks Node.js 22 and 24. Publishing is a separate manual workflow; see [release instructions](https://github.com/yanvah/control-sdk/blob/main/docs/RELEASING.md). Running builds, tests, or `npm pack` never publishes a package.
+CI checks Node.js 22 and 24. Running builds, tests, or `npm pack` never publishes a package.
 
 ## Project goals
 
@@ -319,7 +315,7 @@ A new SaaS should be connectable without modifying Yanvah Control or the SDK int
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/yanvah/control-sdk/blob/main/CONTRIBUTING.md) for setup and checks, and the [Code of Conduct](https://github.com/yanvah/control-sdk/blob/main/CODE_OF_CONDUCT.md) for community expectations. Report suspected vulnerabilities privately using [SECURITY.md](./SECURITY.md), rather than public issues. Changes prepared for the first release are listed in [CHANGELOG.md](./CHANGELOG.md).
+See [CONTRIBUTING.md](https://github.com/yanvah/control-sdk/blob/main/CONTRIBUTING.md) for setup and checks, and the [Code of Conduct](https://github.com/yanvah/control-sdk/blob/main/CODE_OF_CONDUCT.md) for community expectations. Report suspected vulnerabilities privately using [SECURITY.md](./SECURITY.md), rather than public issues.
 
 ## License
 
